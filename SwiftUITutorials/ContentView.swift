@@ -9,41 +9,52 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var show = false
+    
+    
     var body: some View {
         
         ZStack {
             
             TitleSubView()
-                .blur(radius: 20) // efeito blur (quanto menor o valor menos desfocado será)
+                .blur(radius: show ? 20 : 0) // efeito blur (quanto menor o valor menos desfocado será)
+                .animation(.default) // dá a animacao
             
             BackCardView()
-                .background(Color("card4")) // cor do fundo
+                .background(show ? Color("card3") : Color("card4")) // cor do fundo
                 .cornerRadius(20) // bordas
                 .shadow(radius: 20) //sombra
-                .offset(x: 0, y: -40) // move na horizontal(x) ou na vertical(y)
+                .offset(x: 0, y: show ? -350 : -40) // move na horizontal(x) ou na vertical(y)
                 .scaleEffect(0.9) // da um efeito tipo escala
-                .rotationEffect(.degrees(10)) // da efeito de rotacao
+                .rotationEffect(.degrees(show ? 0 : 10)) // da efeito de rotacao
                 .rotation3DEffect(Angle(degrees: 10), axis: (x: 10, y: 0, z: 0)) // da efeito de rotacao 3d e defimos em que eixo queremos esse efeito (x,y,z)
                 .blendMode(.hardLight) // poe o conteudo meio opaco ou invisivel (modo de mistura)
+                .animation(.easeInOut(duration: 0.5)) // dá a animacao
+            
             
             BackCardView()
-                .background(Color("card3")) // cor do fundo
+                .background(show ? Color("card4") : Color("card3")) // cor do fundo
                 .cornerRadius(20) // bordas
                 .shadow(radius: 20) //sombra
-                .offset(x: 0, y: -20) // move na horizontal(x) ou na vertical(y)
+                .offset(x: 0, y: show ? -150 : -20) // move na horizontal(x) ou na vertical(y) (verifica se o show for true ele nao faz o efeito)
                 .scaleEffect(0.95) // da um efeito tipo escala
-                .rotationEffect(.degrees(5)) // da efeito de rotacao
+                .rotationEffect(.degrees(show ? 0 : 5)) // da efeito de rotacao (verifica se o show for true ele nao faz o efeito)
                 .rotation3DEffect(Angle(degrees: 5), axis: (x: 10, y: 0, z: 0)) // da efeito de rotacao 3d e defimos em que eixo queremos esse efeito (x,y,z)
                 .blendMode(.hardLight) // poe o conteudo meio opaco ou invisivel (modo de mistura)
-            
+                .animation(.easeInOut(duration: 0.3)) // dá a animacao
             
             CardView()
                 .blendMode(.hardLight) // poe o conteudo meio opaco ou invisivel (modo de mistura)
+                .onTapGesture {
+                    self.show.toggle() // como show é uma valor booleano o toggle faz o controlo quando é true e false
+            }
             
             
             
             BottomCardView()
-                .blur(radius: 20)  // efeito blur (quanto menor o valor menos desfocado será)
+                .blur(radius: show ? 20 : 0)  // efeito blur (quanto menor o valor menos desfocado será)
+                .animation(.default) // dá a animacao
         }
         
     }
