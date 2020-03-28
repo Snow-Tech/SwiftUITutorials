@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State var show = false
-    
+    @State var viewState = CGSize.zero
     
     var body: some View {
         
@@ -26,6 +26,7 @@ struct ContentView: View {
                 .cornerRadius(20) // bordas
                 .shadow(radius: 20) //sombra
                 .offset(x: 0, y: show ? -350 : -40) // move na horizontal(x) ou na vertical(y)
+                .offset(x: viewState.width, y: viewState.height) // quando começar a arrasta o viewsatate vai receber os valores e atualizar
                 .scaleEffect(0.9) // da um efeito tipo escala
                 .rotationEffect(.degrees(show ? 0 : 10)) // da efeito de rotacao
                 .rotation3DEffect(Angle(degrees: 10), axis: (x: 10, y: 0, z: 0)) // da efeito de rotacao 3d e defimos em que eixo queremos esse efeito (x,y,z)
@@ -38,17 +39,34 @@ struct ContentView: View {
                 .cornerRadius(20) // bordas
                 .shadow(radius: 20) //sombra
                 .offset(x: 0, y: show ? -150 : -20) // move na horizontal(x) ou na vertical(y) (verifica se o show for true ele nao faz o efeito)
+                .offset(x: viewState.width, y: viewState.height) // quando começar a arrasta o viewsatate vai receber os valores e atualizar
                 .scaleEffect(0.95) // da um efeito tipo escala
                 .rotationEffect(.degrees(show ? 0 : 5)) // da efeito de rotacao (verifica se o show for true ele nao faz o efeito)
                 .rotation3DEffect(Angle(degrees: 5), axis: (x: 10, y: 0, z: 0)) // da efeito de rotacao 3d e defimos em que eixo queremos esse efeito (x,y,z)
                 .blendMode(.hardLight) // poe o conteudo meio opaco ou invisivel (modo de mistura)
                 .animation(.easeInOut(duration: 0.3)) // dá a animacao
             
+            
             CardView()
+                .offset(x: viewState.width, y: viewState.height) // quando começar a arrasta o viewsatate vai receber os valores e atualizar
                 .blendMode(.hardLight) // poe o conteudo meio opaco ou invisivel (modo de mistura)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0)) // response quando menor for o valor mais real sera a animacao, dampingFraction quanto maior o numero menos bounce
                 .onTapGesture {
                     self.show.toggle() // como show é uma valor booleano o toggle faz o controlo quando é true e false
             }
+            .gesture(
+                DragGesture()
+                    //quando começa a arrastar
+                    .onChanged { value in
+                        self.viewState = value.translation //recebe os valores de translação
+                        self.show = true
+                }
+                    //quando termina de arrastar
+                    .onEnded { value in
+                        self.viewState = .zero // volta para a posicao incial
+                        self.show = false
+                }
+            )
             
             
             
@@ -134,6 +152,7 @@ struct TitleSubView: View {
 //outra subview ou component que é o menu que está por baixo
 struct BottomCardView: View {
     var body: some View {
+        
         VStack(spacing: 20) {  // dá um espaço na VStack
             
             
@@ -149,7 +168,7 @@ struct BottomCardView: View {
                 .multilineTextAlignment(.center) // alinhamento do texto (centro, esquerda, direita)
                 .lineSpacing(4) // espaço entre o texto
             
-            Spacer()
+            Spacer()  // este espaço é dado na vertical
         }
             .padding(.top, 8) // espaço para cima
             .padding(.horizontal, 20) // espaço horizontal
@@ -157,6 +176,6 @@ struct BottomCardView: View {
             .background(Color.white) // cor do fundo
             .cornerRadius(30) // bordas
             .shadow(radius: 20) // sombra
-            .offset(x: 0, y: 500) // move na horizontal(x) ou na vertical(y)
+            .offset(x: 0, y: 550) // move na horizontal(x) ou na vertical(y)
     }
 }
