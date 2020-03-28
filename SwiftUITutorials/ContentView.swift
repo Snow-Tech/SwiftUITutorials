@@ -12,6 +12,7 @@ struct ContentView: View {
     
     @State var show = false
     @State var viewState = CGSize.zero
+    @State var showCard = false
     
     var body: some View {
         
@@ -19,40 +20,62 @@ struct ContentView: View {
             
             TitleSubView()
                 .blur(radius: show ? 20 : 0) // efeito blur (quanto menor o valor menos desfocado será)
-                .animation(.default) // dá a animacao
+                .opacity(showCard ? 0.4 : 1) //opacidade do fundo quando o menu é mostrado
+                .offset(y: showCard ? -100 : 0) // movimenta para cima o fundo (valor negativo é para cima, positivo para baixo)
+                .animation(
+                    Animation
+                        .default
+                        .delay(0.1) // atraso
+                    //                    .speed(2) // velocidade
+                    //                    .repeatCount(3) // repete a animacao
+                    
+            ) // dá a animacao
             
             BackCardView()
+                .frame(width: showCard ? 300 : 340, height: 220) // a dimensao da stack principal (VStack)
                 .background(show ? Color("card3") : Color("card4")) // cor do fundo
                 .cornerRadius(20) // bordas
                 .shadow(radius: 20) //sombra
                 .offset(x: 0, y: show ? -350 : -40) // move na horizontal(x) ou na vertical(y)
                 .offset(x: viewState.width, y: viewState.height) // quando começar a arrasta o viewsatate vai receber os valores e atualizar
-                .scaleEffect(0.9) // da um efeito tipo escala
+                .offset(y: showCard ? -180 : 0)
+                .scaleEffect(showCard ? 1 :0.9) // da um efeito tipo escala
                 .rotationEffect(.degrees(show ? 0 : 10)) // da efeito de rotacao
-                .rotation3DEffect(Angle(degrees: 10), axis: (x: 10, y: 0, z: 0)) // da efeito de rotacao 3d e defimos em que eixo queremos esse efeito (x,y,z)
+                 .rotationEffect(.degrees(showCard ? -10 : 0)) // da o efeito quando o menu aparece ele fica alinhado
+                .rotation3DEffect(Angle(degrees: showCard ? 0 :10), axis: (x: 10, y: 0, z: 0)) // da efeito de rotacao 3d e defimos em que eixo queremos esse efeito (x,y,z)
                 .blendMode(.hardLight) // poe o conteudo meio opaco ou invisivel (modo de mistura)
                 .animation(.easeInOut(duration: 0.5)) // dá a animacao
             
             
             BackCardView()
+                .frame(width: 340, height: 220) // a dimensao da stack principal (VStack)
                 .background(show ? Color("card4") : Color("card3")) // cor do fundo
                 .cornerRadius(20) // bordas
                 .shadow(radius: 20) //sombra
                 .offset(x: 0, y: show ? -150 : -20) // move na horizontal(x) ou na vertical(y) (verifica se o show for true ele nao faz o efeito)
                 .offset(x: viewState.width, y: viewState.height) // quando começar a arrasta o viewsatate vai receber os valores e atualizar
-                .scaleEffect(0.95) // da um efeito tipo escala
+                .offset(y: showCard ? -140 : 0) // da o efeito quando o menu aparece ele sobe
+                .scaleEffect(showCard ? 1 :0.95) // da um efeito tipo escala (escalonado tipo escadas)
                 .rotationEffect(.degrees(show ? 0 : 5)) // da efeito de rotacao (verifica se o show for true ele nao faz o efeito)
-                .rotation3DEffect(Angle(degrees: 5), axis: (x: 10, y: 0, z: 0)) // da efeito de rotacao 3d e defimos em que eixo queremos esse efeito (x,y,z)
+                .rotationEffect(.degrees(showCard ? -5 : 0)) // da o efeito quando o menu aparece ele fica alinhado
+                .rotation3DEffect(Angle(degrees: showCard ? 0 : 5), axis: (x: 10, y: 0, z: 0)) // da efeito de rotacao 3d e defimos em que eixo queremos esse efeito (x,y,z)
                 .blendMode(.hardLight) // poe o conteudo meio opaco ou invisivel (modo de mistura)
                 .animation(.easeInOut(duration: 0.3)) // dá a animacao
             
             
             CardView()
+                .frame(width: showCard ? 370 : 340, height: 200) // a dimensao da stack principal (VStack)
+                .background(Color.black) // cor do fundo
+                //.cornerRadius(20) // bordas
+                .shadow(radius: 20) //sombra
+                .clipShape(RoundedRectangle(cornerRadius: showCard ? 30 : 20, style: .continuous)) // bordas personalidas(da apple)
                 .offset(x: viewState.width, y: viewState.height) // quando começar a arrasta o viewsatate vai receber os valores e atualizar
+                .offset(y: showCard ? -100 : 0)
                 .blendMode(.hardLight) // poe o conteudo meio opaco ou invisivel (modo de mistura)
                 .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0)) // response quando menor for o valor mais real sera a animacao, dampingFraction quanto maior o numero menos bounce
                 .onTapGesture {
-                    self.show.toggle() // como show é uma valor booleano o toggle faz o controlo quando é true e false
+                    // self.show.toggle() // como show é uma valor booleano o toggle faz o controlo quando é true e false
+                    self.showCard.toggle()
             }
             .gesture(
                 DragGesture()
@@ -71,8 +94,9 @@ struct ContentView: View {
             
             
             BottomCardView()
+                .offset(x: 0, y: showCard ? 360 : 1000) // move na horizontal(x) ou na vertical(y)
                 .blur(radius: show ? 20 : 0)  // efeito blur (quanto menor o valor menos desfocado será)
-                .animation(.default) // dá a animacao
+                .animation(.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.8)) // dá a animacao
         }
         
     }
@@ -110,12 +134,9 @@ struct CardView: View {
                 .aspectRatio(contentMode: .fill) // proporção da imagem se é fit ou fill
                 .frame(width: 300, height: 110, alignment: .top) // dimensao para a imagem
         }
-            .frame(width: 340, height: 200) // a dimensao da stack principal (VStack)
-            .background(Color.black) // cor do fundo
-            .cornerRadius(20) // bordas
-            .shadow(radius: 20) //sombra
     }
 }
+
 
 
 //outra subview ou component que são os outros cartões
@@ -124,9 +145,10 @@ struct BackCardView: View {
         VStack {
             Spacer()
         }
-            .frame(width: 340, height: 220) // a dimensao da stack principal (VStack)
     }
 }
+
+
 
 
 //outra subview ou component que contem o TITULO E A IMAGEM
@@ -176,6 +198,5 @@ struct BottomCardView: View {
             .background(Color.white) // cor do fundo
             .cornerRadius(30) // bordas
             .shadow(radius: 20) // sombra
-            .offset(x: 0, y: 550) // move na horizontal(x) ou na vertical(y)
     }
 }
