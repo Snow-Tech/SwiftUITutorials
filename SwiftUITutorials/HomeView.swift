@@ -28,9 +28,13 @@ struct HomeView: View {
             
             //ScrollView
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 30) {
+                HStack(spacing: 20) {
                     ForEach(sectionData) { item in // por os dados estaticos numa scrollview
-                        SeccoesView(section: item)
+                        GeometryReader { geometry in
+                            SeccoesView(section: item)
+                                .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX - 30) / -20), axis: (x: 0, y: 10, z: 0)) // 3D SCROLL ANimantion
+                        }
+                        .frame(width: 275, height: 275)
                     }
                 }
                 .padding(30)
