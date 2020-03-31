@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF2DCDD524325E1E00E2F952 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2DCDD424325E1E00E2F952 /* MenuView.swift */; };
+		CF2DCDD72432702100E2F952 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2DCDD62432702100E2F952 /* Home.swift */; };
 		CF42C978242FA23F0095D54F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF42C977242FA23F0095D54F /* AppDelegate.swift */; };
 		CF42C97A242FA23F0095D54F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF42C979242FA23F0095D54F /* SceneDelegate.swift */; };
 		CF42C97C242FA23F0095D54F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF42C97B242FA23F0095D54F /* ContentView.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF2DCDD424325E1E00E2F952 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		CF2DCDD62432702100E2F952 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		CF42C974242FA23F0095D54F /* SwiftUITutorials.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUITutorials.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF42C977242FA23F0095D54F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF42C979242FA23F0095D54F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,10 +63,12 @@
 				CF42C977242FA23F0095D54F /* AppDelegate.swift */,
 				CF42C979242FA23F0095D54F /* SceneDelegate.swift */,
 				CF42C97B242FA23F0095D54F /* ContentView.swift */,
+				CF2DCDD424325E1E00E2F952 /* MenuView.swift */,
 				CF42C97D242FA2400095D54F /* Assets.xcassets */,
 				CF42C982242FA2400095D54F /* LaunchScreen.storyboard */,
 				CF42C985242FA2400095D54F /* Info.plist */,
 				CF42C97F242FA2400095D54F /* Preview Content */,
+				CF2DCDD62432702100E2F952 /* Home.swift */,
 			);
 			path = SwiftUITutorials;
 			sourceTree = "<group>";
@@ -147,6 +153,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF42C978242FA23F0095D54F /* AppDelegate.swift in Sources */,
+				CF2DCDD524325E1E00E2F952 /* MenuView.swift in Sources */,
+				CF2DCDD72432702100E2F952 /* Home.swift in Sources */,
 				CF42C97A242FA23F0095D54F /* SceneDelegate.swift in Sources */,
 				CF42C97C242FA23F0095D54F /* ContentView.swift in Sources */,
 			);

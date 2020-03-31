@@ -10,9 +10,11 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var show = false
-    @State var viewState = CGSize.zero
-    @State var showCard = false
+    @State var show = false // para mostar o efeito blur no fundo quando tocas ou movimentas o cartão
+    @State var viewState = CGSize.zero // para quandar os valores, quando movimetas pelo ecrã o cartão
+    @State var showCard = false // animacao quando tocas no cartap, para aparecer o menu
+    @State var bottomState = CGSize.zero // animacao quando arrastas o menu
+    @State var showFull = false // verificar se o menu  está completo
     
     var body: some View {
         
@@ -22,14 +24,14 @@ struct ContentView: View {
                 .blur(radius: show ? 20 : 0) // efeito blur (quanto menor o valor menos desfocado será)
                 .opacity(showCard ? 0.4 : 1) //opacidade do fundo quando o menu é mostrado
                 .offset(y: showCard ? -100 : 0) // movimenta para cima o fundo (valor negativo é para cima, positivo para baixo)
-                .animation(
+                .animation( // dá a animacao
                     Animation
                         .default
                         .delay(0.1) // atraso
                     //                    .speed(2) // velocidade
                     //                    .repeatCount(3) // repete a animacao
                     
-            ) // dá a animacao
+            )
             
             BackCardView()
                 .frame(width: showCard ? 300 : 340, height: 220) // a dimensao da stack principal (VStack)
@@ -77,8 +79,9 @@ struct ContentView: View {
                     // self.show.toggle() // como show é uma valor booleano o toggle faz o controlo quando é true e false
                     self.showCard.toggle()
             }
+                // criar gesture
             .gesture(
-                DragGesture()
+                DragGesture() // gesture para arrastar
                     //quando começa a arrastar
                     .onChanged { value in
                         self.viewState = value.translation //recebe os valores de translação
@@ -95,8 +98,49 @@ struct ContentView: View {
             
             BottomCardView()
                 .offset(x: 0, y: showCard ? 360 : 1000) // move na horizontal(x) ou na vertical(y)
+                .offset(y: bottomState.height)
                 .blur(radius: show ? 20 : 0)  // efeito blur (quanto menor o valor menos desfocado será)
                 .animation(.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.8)) // dá a animacao
+            
+                 // criar gesture
+            .gesture(
+                DragGesture() // gesture para arrastar
+                    
+                    //quando começa a arrastar
+                    .onChanged { value in
+                        self.bottomState = value.translation //recebe os valores de translação
+                        
+                        if self.showFull {
+                            self.bottomState.height += -300
+                        }
+                        
+                        //define a maxima altura que deve chegar
+                        if self.bottomState.height < -300 {
+                            self.bottomState.height = -300
+                        }
+                        
+                }
+                    
+                    
+                    //quando termina de arrastar
+                   .onEnded { value in
+                    
+                    // verifica na vertical quando for superior que 50 ele desparece ( - é para cima, + é para baixo)
+                    if self.bottomState.height > 50 {
+                        self.showCard = false
+                    }
+                    // verifica na vertical quando for inferior que -100 ou que 250 ele para em -300
+                    if (self.bottomState.height < -100 && !self.showFull) || (self.bottomState.height < -250 && self.showFull) {
+                        self.bottomState.height = -300
+                        self.showFull = true
+                    } else {
+                        self.bottomState = .zero // volta para a posicao incial
+                        self.showFull = false
+                    }
+                
+                }
+            
+            )
         }
         
     }
