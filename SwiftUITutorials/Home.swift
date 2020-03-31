@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct Home: View {
-    
-    
     @State var showProfile = false // para mostrar o perfil
     @State var viewState = CGSize.zero // para ter controller sobre o gesture
     
