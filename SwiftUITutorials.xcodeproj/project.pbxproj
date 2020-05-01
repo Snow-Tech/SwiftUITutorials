@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF262C372433E512000B4A74 /* UpdateList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF262C362433E512000B4A74 /* UpdateList.swift */; };
+		CF262C392433E89E000B4A74 /* UpdateDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF262C382433E89E000B4A74 /* UpdateDetail.swift */; };
 		CF2AC4162433986700997F8D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2AC4152433986700997F8D /* HomeView.swift */; };
 		CF2DCDD524325E1E00E2F952 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2DCDD424325E1E00E2F952 /* MenuView.swift */; };
 		CF2DCDD72432702100E2F952 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2DCDD62432702100E2F952 /* Home.swift */; };
@@ -16,9 +18,12 @@
 		CF42C97E242FA2400095D54F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF42C97D242FA2400095D54F /* Assets.xcassets */; };
 		CF42C981242FA2400095D54F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF42C980242FA2400095D54F /* Preview Assets.xcassets */; };
 		CF42C984242FA2400095D54F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF42C982242FA2400095D54F /* LaunchScreen.storyboard */; };
+		CFF2D8EB245C23D000031F05 /* UpdateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF2D8EA245C23D000031F05 /* UpdateStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF262C362433E512000B4A74 /* UpdateList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateList.swift; sourceTree = "<group>"; };
+		CF262C382433E89E000B4A74 /* UpdateDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDetail.swift; sourceTree = "<group>"; };
 		CF2AC4152433986700997F8D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CF2DCDD424325E1E00E2F952 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		CF2DCDD62432702100E2F952 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -30,6 +35,7 @@
 		CF42C980242FA2400095D54F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CF42C983242FA2400095D54F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CF42C985242FA2400095D54F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFF2D8EA245C23D000031F05 /* UpdateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +78,9 @@
 				CF42C97F242FA2400095D54F /* Preview Content */,
 				CF2DCDD62432702100E2F952 /* Home.swift */,
 				CF2AC4152433986700997F8D /* HomeView.swift */,
+				CF262C362433E512000B4A74 /* UpdateList.swift */,
+				CF262C382433E89E000B4A74 /* UpdateDetail.swift */,
+				CFF2D8EA245C23D000031F05 /* UpdateStore.swift */,
 			);
 			path = SwiftUITutorials;
 			sourceTree = "<group>";
@@ -156,7 +165,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF42C978242FA23F0095D54F /* AppDelegate.swift in Sources */,
+				CFF2D8EB245C23D000031F05 /* UpdateStore.swift in Sources */,
+				CF262C372433E512000B4A74 /* UpdateList.swift in Sources */,
 				CF2DCDD524325E1E00E2F952 /* MenuView.swift in Sources */,
+				CF262C392433E89E000B4A74 /* UpdateDetail.swift in Sources */,
 				CF2DCDD72432702100E2F952 /* Home.swift in Sources */,
 				CF2AC4162433986700997F8D /* HomeView.swift in Sources */,
 				CF42C97A242FA23F0095D54F /* SceneDelegate.swift in Sources */,
