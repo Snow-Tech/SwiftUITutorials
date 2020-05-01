@@ -43,7 +43,7 @@ struct ContentView: View {
                 .offset(y: showCard ? -180 : 0)
                 .scaleEffect(showCard ? 1 :0.9) // da um efeito tipo escala
                 .rotationEffect(.degrees(show ? 0 : 10)) // da efeito de rotacao
-                 .rotationEffect(.degrees(showCard ? -10 : 0)) // da o efeito quando o menu aparece ele fica alinhado
+                .rotationEffect(.degrees(showCard ? -10 : 0)) // da o efeito quando o menu aparece ele fica alinhado
                 .rotation3DEffect(Angle(degrees: showCard ? 0 :10), axis: (x: 10, y: 0, z: 0)) // da efeito de rotacao 3d e defimos em que eixo queremos esse efeito (x,y,z)
                 .blendMode(.hardLight) // poe o conteudo meio opaco ou invisivel (modo de mistura)
                 .animation(.easeInOut(duration: 0.5)) // dá a animacao
@@ -80,66 +80,66 @@ struct ContentView: View {
                     self.showCard.toggle()
             }
                 // criar gesture
-            .gesture(
-                DragGesture() // gesture para arrastar
-                    //quando começa a arrastar
-                    .onChanged { value in
-                        self.viewState = value.translation //recebe os valores de translação
-                        self.show = true
-                }
-                    //quando termina de arrastar
-                    .onEnded { value in
-                        self.viewState = .zero // volta para a posicao incial
-                        self.show = false
-                }
+                .gesture(
+                    DragGesture() // gesture para arrastar
+                        //quando começa a arrastar
+                        .onChanged { value in
+                            self.viewState = value.translation //recebe os valores de translação
+                            self.show = true
+                    }
+                        //quando termina de arrastar
+                        .onEnded { value in
+                            self.viewState = .zero // volta para a posicao incial
+                            self.show = false
+                    }
             )
             
             
             
-            BottomCardView()
+            BottomCardView(show: $showCard)
                 .offset(x: 0, y: showCard ? 360 : 1000) // move na horizontal(x) ou na vertical(y)
                 .offset(y: bottomState.height)
                 .blur(radius: show ? 20 : 0)  // efeito blur (quanto menor o valor menos desfocado será)
                 .animation(.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.8)) // dá a animacao
-            
-                 // criar gesture
-            .gesture(
-                DragGesture() // gesture para arrastar
-                    
-                    //quando começa a arrastar
-                    .onChanged { value in
-                        self.bottomState = value.translation //recebe os valores de translação
-                        
-                        if self.showFull {
-                            self.bottomState.height += -300
-                        }
-                        
-                        //define a maxima altura que deve chegar
-                        if self.bottomState.height < -300 {
-                            self.bottomState.height = -300
-                        }
-                        
-                }
-                    
-                    
-                    //quando termina de arrastar
-                   .onEnded { value in
-                    
-                    // verifica na vertical quando for superior que 50 ele desparece ( - é para cima, + é para baixo)
-                    if self.bottomState.height > 50 {
-                        self.showCard = false
-                    }
-                    // verifica na vertical quando for inferior que -100 ou que 250 ele para em -300
-                    if (self.bottomState.height < -100 && !self.showFull) || (self.bottomState.height < -250 && self.showFull) {
-                        self.bottomState.height = -300
-                        self.showFull = true
-                    } else {
-                        self.bottomState = .zero // volta para a posicao incial
-                        self.showFull = false
-                    }
                 
-                }
-            
+                // criar gesture
+                .gesture(
+                    DragGesture() // gesture para arrastar
+                        
+                        //quando começa a arrastar
+                        .onChanged { value in
+                            self.bottomState = value.translation //recebe os valores de translação
+                            
+                            if self.showFull {
+                                self.bottomState.height += -300
+                            }
+                            
+                            //define a maxima altura que deve chegar
+                            if self.bottomState.height < -300 {
+                                self.bottomState.height = -300
+                            }
+                            
+                    }
+                        
+                        
+                        //quando termina de arrastar
+                        .onEnded { value in
+                            
+                            // verifica na vertical quando for superior que 50 ele desparece ( - é para cima, + é para baixo)
+                            if self.bottomState.height > 50 {
+                                self.showCard = false
+                            }
+                            // verifica na vertical quando for inferior que -100 ou que 250 ele para em -300
+                            if (self.bottomState.height < -100 && !self.showFull) || (self.bottomState.height < -250 && self.showFull) {
+                                self.bottomState.height = -300
+                                self.showFull = true
+                            } else {
+                                self.bottomState = .zero // volta para a posicao incial
+                                self.showFull = false
+                            }
+                            
+                    }
+                    
             )
         }
         
@@ -217,6 +217,10 @@ struct TitleSubView: View {
 
 //outra subview ou component que é o menu que está por baixo
 struct BottomCardView: View {
+    
+    @Binding var show: Bool
+    
+    
     var body: some View {
         
         VStack(spacing: 20) {  // dá um espaço na VStack
@@ -233,6 +237,27 @@ struct BottomCardView: View {
                 .fontWeight(.medium) // tipo de fonte
                 .multilineTextAlignment(.center) // alinhamento do texto (centro, esquerda, direita)
                 .lineSpacing(4) // espaço entre o texto
+            
+            
+            // Mostrar o circular Progress
+            HStack(spacing: 20) {
+                RingView(color1: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), color2: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), width: 88, height: 88, percent: 78, show: $show)
+                    .animation(Animation.easeInOut.delay(0.3))
+                
+                VStack(spacing: 8) {
+                    Text("Brian Michael").fontWeight(.bold)
+                    Text("12 of 12 sections\n10 hours spent so far")
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                        .lineSpacing(4)
+                }
+                .padding(20)
+                .background(Color.white)
+                .cornerRadius(20)
+                .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
+                
+            }
+            
             
             Spacer()  // este espaço é dado na vertical
         }
