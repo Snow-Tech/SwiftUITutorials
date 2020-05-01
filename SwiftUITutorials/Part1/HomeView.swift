@@ -16,7 +16,8 @@ struct HomeView: View {
         VStack {
             HStack {
                 Text("iOS Developer")
-                    .font(.system(size: 28, weight: .bold))
+                    //.font(.system(size: 28, weight: .bold))
+                    .modifier(CustomFontModifiers(size: 28))
                 
                 Spacer()
                 
@@ -44,24 +45,19 @@ struct HomeView: View {
             
             
             // circular progress
-            HStack(spacing: 12) {
-                RingView(color1: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), color2: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), width: 44, height: 44, percent: 68, show: .constant(true))
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("6 minutes left")
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                    Text("10 minutes today")
-                        .font(.caption)
-                }
-                
-                
-                
+            ScrollView(.horizontal, showsIndicators: false) {
+                WatchRingsView()
+                    .padding(.horizontal, 30)
+                    .padding(.bottom, 30)
             }
-            .padding(8)
-            .background(Color.white)
-            .cornerRadius(20)
-            .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)
-            .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+            
+            
+            
+            
+            
+            
+            
+            
             
             //ScrollView
             ScrollView(.horizontal, showsIndicators: false) {
@@ -142,3 +138,48 @@ let sectionData =
         Section(title: "Tutoriais de Node.js", text: "50 secções", logo: "Logo2", image: Image("Card4"), color: Color("card4"))
         
 ]
+
+struct WatchRingsView: View {
+    var body: some View {
+        HStack(spacing: 30) {
+            HStack(spacing: 12) {
+                RingView(color1: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), color2: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), width: 44, height: 44, percent: 68, show: .constant(true))
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("6 minutes left")
+                        .bold()
+                        .modifier(FontModifiers(style: .subheadline))
+                    Text("10 minutes today")
+                        .modifier(FontModifiers(style: .caption))
+                }
+                .modifier(FontModifiers()) 
+            }
+            .padding(8)
+            .background(Color.white)
+            .cornerRadius(20)
+            .modifier(ShadowModifiers())
+            
+            
+            // outra circular progress
+            HStack(spacing: 12) {
+                RingView(color1: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), color2: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), width: 32, height: 32, percent: 30, show: .constant(true))
+                    .modifier(FontModifiers())
+            }
+            .padding(8)
+            .background(Color.white)
+            .cornerRadius(20)
+            .modifier(ShadowModifiers())
+            
+            
+            // outra circular progress
+            HStack(spacing: 12) {
+                RingView(color1: #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), color2: #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1), width: 32, height: 32, percent: 50, show: .constant(true))
+                    .modifier(FontModifiers())
+            }
+            .padding(8)
+            .background(Color.white)
+            .cornerRadius(20)
+            .modifier(ShadowModifiers())
+            
+        }
+    }
+}
