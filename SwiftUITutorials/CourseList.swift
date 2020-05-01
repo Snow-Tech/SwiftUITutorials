@@ -1,0 +1,108 @@
+//
+//  CourseList.swift
+//  SwiftUITutorials
+//
+//  Created by Brian Hashirama on 5/1/20.
+//  Copyright © 2020 PROIT-CONSULTING. All rights reserved.
+//
+
+import SwiftUI
+
+struct CourseList: View {
+    var body: some View {
+        
+        VStack {
+            CourseView()
+        }
+        
+        
+    }
+}
+
+struct CourseList_Previews: PreviewProvider {
+    static var previews: some View {
+        CourseList()
+    }
+}
+
+
+
+struct CourseView: View {
+    
+    @State var show = false
+    
+    
+    var body: some View {
+        ZStack(alignment: .top) {
+            VStack(alignment: .leading, spacing: 30) {
+                Text("When you don't create things, you become defined by your tastes rather than ability. your tastes only narrow & exclude people. so create.")
+                
+                Text("Frases de Programadores")
+                    .font(.title).bold()
+                
+                Text("I think that it’s extraordinarily important that we in computer science keep fun in computing. When it started out it was an awful lot of fun. Of course the paying customers got shafted every now and then and after a while we began to take their complaints seriously. We began to feel as if we really were responsible for the successful error-free perfect use of these machines. I don’t think we are. I think we’re responsible for stretching them setting them off in new directions and keeping fun in the house. I hope the ﬁeld of computer science never loses its sense of fun. Above all I hope we don’t become missionaries. Don’t feel as if you’re Bible sales-men. The world has too many of those already. What you know about computing other people will learn. Don’t feel as if the key to successful computing is only in your hands. What’s in your hands I think and hope is intelligence: the ability to see the machine as more than when you were ﬁrst led up to it that you can make it more.")
+            }
+            .padding(30)
+            .frame(maxWidth: show ? .infinity : screen.width - 60, maxHeight: show ? .infinity : 280)
+            .offset(y: show ? 380 : 0)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+            .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)
+            .opacity(show ? 1 : 0)
+            
+            
+            
+            VStack {
+                // TEXTO
+                HStack(alignment:.top) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Brian Michael")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundColor(.white)
+                        Text("20 Sections")
+                            .foregroundColor(Color.white.opacity(0.7))
+                    }
+                    
+                    //LOGO
+                    Spacer()
+                    ZStack {
+                        Image(uiImage: #imageLiteral(resourceName: "Logo1"))
+                            .opacity(show ? 0 : 1)
+                        VStack {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.white)
+                        }
+                        .frame(width: 36, height: 36)
+                        .background(Color.black)
+                        .clipShape(Circle())
+                        .opacity(show ? 1 : 0)
+                    }
+                    
+                    
+                }
+                
+                //IMAGEM DO CARTÃO
+                Spacer()
+                Image(uiImage: #imageLiteral(resourceName: "Card2"))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth:. infinity)
+                    .frame(height: 140, alignment: .top)
+            }
+                
+            .padding(show ? 30 : 20)
+            .padding(.top, show ? 30: 0)
+                //.frame(width: show ? screen.width : screen.width - 60  , height: show ? screen.height : 280)
+                .frame(maxWidth: show ? .infinity : screen.width - 60  , maxHeight: show ? 460 : 280)
+                .background(Color(#colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)))
+                .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                .shadow(color: Color(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)).opacity(0.3), radius: 20, x: 0, y: 20)
+                .onTapGesture {
+                    self.show.toggle()
+            }
+        }
+        .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+        .edgesIgnoringSafeArea(.all)
+    }
+}

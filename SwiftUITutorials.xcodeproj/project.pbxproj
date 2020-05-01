@@ -18,6 +18,7 @@
 		CF42C97E242FA2400095D54F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF42C97D242FA2400095D54F /* Assets.xcassets */; };
 		CF42C981242FA2400095D54F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF42C980242FA2400095D54F /* Preview Assets.xcassets */; };
 		CF42C984242FA2400095D54F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF42C982242FA2400095D54F /* LaunchScreen.storyboard */; };
+		CF578D0B245C9F88007DD4B4 /* CourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF578D0A245C9F88007DD4B4 /* CourseList.swift */; };
 		CFEE5A94245C3CCA00B028E5 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEE5A93245C3CCA00B028E5 /* Modifiers.swift */; };
 		CFEE5AAD245C3ECF00B028E5 /* WorkSans-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFEE5A96245C3ECF00B028E5 /* WorkSans-VariableFont_wght.ttf */; };
 		CFEE5AAE245C3ECF00B028E5 /* WorkSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFEE5A98245C3ECF00B028E5 /* WorkSans-Regular.ttf */; };
@@ -60,6 +61,7 @@
 		CF42C980242FA2400095D54F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CF42C983242FA2400095D54F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CF42C985242FA2400095D54F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF578D0A245C9F88007DD4B4 /* CourseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseList.swift; sourceTree = "<group>"; };
 		CFEE5A93245C3CCA00B028E5 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		CFEE5A96245C3ECF00B028E5 /* WorkSans-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		CFEE5A98245C3ECF00B028E5 /* WorkSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				CF42C97F242FA2400095D54F /* Preview Content */,
 				CFF2D8EF245C30F400031F05 /* RingView.swift */,
 				CFEE5A93245C3CCA00B028E5 /* Modifiers.swift */,
+				CF578D0A245C9F88007DD4B4 /* CourseList.swift */,
 			);
 			path = SwiftUITutorials;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				CF42C97A242FA23F0095D54F /* SceneDelegate.swift in Sources */,
 				CF42C97C242FA23F0095D54F /* ContentView.swift in Sources */,
 				CFF2D8ED245C2D7B00031F05 /* TabBar.swift in Sources */,
+				CF578D0B245C9F88007DD4B4 /* CourseList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

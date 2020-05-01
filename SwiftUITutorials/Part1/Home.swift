@@ -11,6 +11,7 @@ import SwiftUI
 struct Home: View {
     @State var showProfile = false // para mostrar o perfil
     @State var viewState = CGSize.zero // para ter controller sobre o gesture
+    @State var showContent = false
     
     
     var body: some View {
@@ -18,16 +19,26 @@ struct Home: View {
             Color(#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1))
                 .edgesIgnoringSafeArea(.all)
             
-            HomeView(showProfile: $showProfile)  // O cabeçalho Foto e texto
-                .padding(.top, 44)
-                .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous)) // poe as bordas da view redonda
-                .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20) // sombra da view
-                .offset(y: showProfile ? -450 : 0) // faz viewPrincipal subir para uma posicao de -450
-                .rotation3DEffect(Angle(degrees: showProfile ? Double(viewState.height / 10) - 10: 0), axis: (x: 10, y: 0, z: 0)) // dá um efeito 3D na viewPrincipal
-                .scaleEffect(showProfile ? 0.9 : 1) // diminiu a viewPrincipal quando clicar no botao
-                .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0)) // animacao quando o menuView aparece
-                .edgesIgnoringSafeArea(.all)
+            VStack {
+                HomeView(showProfile: $showProfile, showContent: $showContent)  // O cabeçalho Foto e texto
+                    .padding(.top, 44)
+                    .background(
+                        VStack {
+                            LinearGradient(gradient: Gradient(colors: [Color("background2"), Color.white]), startPoint: .top, endPoint: .bottom)
+                                .frame(height: 200)
+                            Spacer()
+                        }
+                        .background(Color.white)
+                
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous)) // poe as bordas da view redonda
+                    .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20) // sombra da view
+                    .offset(y: showProfile ? -450 : 0) // faz viewPrincipal subir para uma posicao de -450
+                    .rotation3DEffect(Angle(degrees: showProfile ? Double(viewState.height / 10) - 10: 0), axis: (x: 10, y: 0, z: 0)) // dá um efeito 3D na viewPrincipal
+                    .scaleEffect(showProfile ? 0.9 : 1) // diminiu a viewPrincipal quando clicar no botao
+                    .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0)) // animacao quando o menuView aparece
+                    .edgesIgnoringSafeArea(.all)
+            }
             
             
             
@@ -57,6 +68,37 @@ struct Home: View {
                     }
                     
             )
+            
+            // quando mostrar o cartão
+            if showContent {
+                
+                //fundo branco
+                Color.white
+                    .edgesIgnoringSafeArea(.all)
+                
+                //mostra o cartão
+                ContentView()
+                
+                
+                //botao sair
+                VStack {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "xmark")
+                            .frame(width: 36, height: 36)
+                            .foregroundColor(.white)
+                            .background(Color.black)
+                            .clipShape(Circle())
+                    }
+                    Spacer()
+                }
+                .offset(x: -16, y: 16)
+                .transition(.move(edge: .top))
+                .animation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0))
+                .onTapGesture {
+                    self.showContent = false
+                }
+            }
         }
         
     }
