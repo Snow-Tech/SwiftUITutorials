@@ -10,19 +10,18 @@ import SwiftUI
 
 struct CourseList: View {
     
-
+    
     @State var courses = courseData
     @State var active = false
+    @State var activeIndex = -1
+    @State var activeView = CGSize.zero
     
     var body: some View {
         
         ZStack {
-            
-            Color.black.opacity(active ? 0.5 : 0)
+            Color.black.opacity(Double(self.activeView.height / 500)) // muda a opacidade do fundo
                 .animation(.linear)
                 .edgesIgnoringSafeArea(.all)
-            
-            
             
             ScrollView {
                 VStack(spacing: 30) {
@@ -36,19 +35,29 @@ struct CourseList: View {
                     
                     ForEach(courses.indices, id: \.self) { index in
                         GeometryReader { geometry in
-                            CourseView(show: self.$courses[index].show, course: self.courses[index], active: self.$active)
+                            CourseView(
+                                show: self.$courses[index].show,
+                                course: self.courses[index],
+                                active: self.$active,
+                                index: index,
+                                activeIndex: self.$activeIndex,
+                                activeView: self.$activeView
+                            )
                                 .offset(y: self.courses[index].show ? -geometry.frame(in: .global).minY : 0)
+                                .opacity(self.activeIndex != index && self.active ? 0 : 1)
+                                .scaleEffect(self.activeIndex != index && self.active ? 0.5 : 1)
+                                .offset(x: self.activeIndex != index && self.active ? screen.width : 0)
                         }
                         .frame(height: 280)
                         .frame(maxWidth: self.courses[index].show ? .infinity : screen.width - 60 )
-                        .zIndex(self.courses[index].show ? 1 : 0) // quando clica ele preenche o ecra e deixa o resto por trás, tenta comentar esta linha e ve a diferença
+                            .zIndex(self.courses[index].show ? 1 : 0) // quando clica ele preenche o ecra e deixa o resto por trás, tenta comentar esta linha e ve a diferença
                     }
                 }
                 .frame(width: screen.width)
                 .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
             }
-            
-            .statusBar(hidden: active ? true : false) // faz desparecer o status bar
+                
+                .statusBar(hidden: active ? true : false) // faz desparecer o status bar
                 .animation(.linear)
         }
         
@@ -68,6 +77,9 @@ struct CourseView: View {
     @Binding var show: Bool
     var course: Course
     @Binding var active: Bool
+    var index: Int
+    @Binding var activeIndex: Int
+    @Binding var activeView: CGSize
     
     var body: some View {
         
@@ -90,7 +102,7 @@ struct CourseView: View {
             .opacity(show ? 1 : 0)
             
             
-            
+            // CARD
             VStack {
                 // TEXTO
                 HStack(alignment:.top) {
@@ -137,14 +149,69 @@ struct CourseView: View {
                 .background(Color(course.color))
                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                 .shadow(color: Color(course.color).opacity(0.3), radius: 20, x: 0, y: 20)
+                
+                //Pan gesture que basta arrastar a view e volta para posico original
+                .gesture(
+                    show ?
+                        DragGesture().onChanged({ (value) in
+                            guard value.translation.height < 300  else { return }
+                            guard value.translation.height > 0 else { return }
+                            self.activeView = value.translation
+                        })
+                            .onEnded({ (value) in
+                                if self.activeView.height > 50 {
+                                    self.show = false
+                                    self.active = false
+                                    self.activeIndex = -1
+                                }
+                                self.activeView = .zero
+                            })
+                        : nil
+            )
+                
+                //para clicar no cartão
                 .onTapGesture {
                     self.show.toggle()
                     self.active.toggle()
+                    if self.show {
+                        self.activeIndex = self.index
+                    } else {
+                        self.activeIndex = -1
+                    }
             }
+            // mostra a view verdadeira com o scroll
+            if show {
+//                CourseDetail(course: course, show: $show, active: $active, activeIndex:  $activeIndex)
+//                    .background(Color.white)
+//                    .animation(nil)
+            }
+            
+            
         }
         .frame(height: show ? screen.height : 280)
-        .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
-        .edgesIgnoringSafeArea(.all)
+        .scaleEffect(1 - self.activeView.height / 1000)
+        .rotation3DEffect(Angle(degrees: Double(self.activeView.height / 10)), axis: (x: 0, y: 10, z: 0))
+            .hueRotation(Angle(degrees: Double(self.activeView.height))) // faz um flash na imagem
+            .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+            .gesture(
+                show ?
+                    DragGesture().onChanged({ (value) in
+                        guard value.translation.height < 300  else { return }
+                        guard value.translation.height > 0 else { return }
+                       self.activeView = value.translation
+                    })
+                        .onEnded({ (value) in
+                            if self.activeView.height > 50 {
+                                self.show = false
+                                self.active = false
+                                self.activeIndex = -1
+                            }
+                            self.activeView = .zero
+                        })
+                    : nil
+        )
+            
+            .edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -162,10 +229,10 @@ struct Course: Identifiable {
 
 
 var courseData = [
-        Course(title: "Steve Jobs", subtitle: "Apple", image: #imageLiteral(resourceName: "Card4"), logo: #imageLiteral(resourceName: "Logo1"), color: #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), show: false),
-        Course(title: "Bill Gates", subtitle: "Microsoft", image: #imageLiteral(resourceName: "Card5"), logo: #imageLiteral(resourceName: "Logo1"), color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), show: false),
-        Course(title: "Linus Torvalds", subtitle: "Linux", image: #imageLiteral(resourceName: "Card3"), logo: #imageLiteral(resourceName: "Logo1"), color: #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1), show: false),
-        Course(title: "Brian Michael", subtitle: "Izanami", image: #imageLiteral(resourceName: "Card1"), logo: #imageLiteral(resourceName: "Logo1"), color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), show: false)
-
-
+    Course(title: "Steve Jobs", subtitle: "Apple", image: #imageLiteral(resourceName: "Card4"), logo: #imageLiteral(resourceName: "Logo1"), color: #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), show: false),
+    Course(title: "Bill Gates", subtitle: "Microsoft", image: #imageLiteral(resourceName: "Card5"), logo: #imageLiteral(resourceName: "Logo1"), color: #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), show: false),
+    Course(title: "Linus Torvalds", subtitle: "Linux", image: #imageLiteral(resourceName: "Card3"), logo: #imageLiteral(resourceName: "Logo1"), color: #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1), show: false),
+    Course(title: "Brian Michael", subtitle: "Izanami", image: #imageLiteral(resourceName: "Card1"), logo: #imageLiteral(resourceName: "Logo1"), color: #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1), show: false)
+    
+    
 ]
