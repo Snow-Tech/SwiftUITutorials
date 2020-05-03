@@ -20,6 +20,9 @@
 		CF42C984242FA2400095D54F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF42C982242FA2400095D54F /* LaunchScreen.storyboard */; };
 		CF578D0B245C9F88007DD4B4 /* CourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF578D0A245C9F88007DD4B4 /* CourseList.swift */; };
 		CF61516A245EDCF10096100C /* CourseDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF615169245EDCF10096100C /* CourseDetail.swift */; };
+		CF61516C245EE10E0096100C /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF61516B245EE10E0096100C /* Data.swift */; };
+		CF61516E245EE2E50096100C /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF61516D245EE2E50096100C /* PostList.swift */; };
+		CF615170245EE49F0096100C /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF61516F245EE49F0096100C /* DataStore.swift */; };
 		CFEE5A94245C3CCA00B028E5 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEE5A93245C3CCA00B028E5 /* Modifiers.swift */; };
 		CFEE5AAD245C3ECF00B028E5 /* WorkSans-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFEE5A96245C3ECF00B028E5 /* WorkSans-VariableFont_wght.ttf */; };
 		CFEE5AAE245C3ECF00B028E5 /* WorkSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFEE5A98245C3ECF00B028E5 /* WorkSans-Regular.ttf */; };
@@ -64,6 +67,9 @@
 		CF42C985242FA2400095D54F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF578D0A245C9F88007DD4B4 /* CourseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseList.swift; sourceTree = "<group>"; };
 		CF615169245EDCF10096100C /* CourseDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetail.swift; sourceTree = "<group>"; };
+		CF61516B245EE10E0096100C /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		CF61516D245EE2E50096100C /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
+		CF61516F245EE49F0096100C /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		CFEE5A93245C3CCA00B028E5 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		CFEE5A96245C3ECF00B028E5 /* WorkSans-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		CFEE5A98245C3ECF00B028E5 /* WorkSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -133,6 +139,9 @@
 				CFEE5A93245C3CCA00B028E5 /* Modifiers.swift */,
 				CF578D0A245C9F88007DD4B4 /* CourseList.swift */,
 				CF615169245EDCF10096100C /* CourseDetail.swift */,
+				CF61516B245EE10E0096100C /* Data.swift */,
+				CF61516F245EE49F0096100C /* DataStore.swift */,
+				CF61516D245EE2E50096100C /* PostList.swift */,
 			);
 			path = SwiftUITutorials;
 			sourceTree = "<group>";
@@ -292,6 +301,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF42C978242FA23F0095D54F /* AppDelegate.swift in Sources */,
+				CF61516C245EE10E0096100C /* Data.swift in Sources */,
+				CF615170245EE49F0096100C /* DataStore.swift in Sources */,
 				CFF2D8EB245C23D000031F05 /* UpdateStore.swift in Sources */,
 				CF262C372433E512000B4A74 /* UpdateList.swift in Sources */,
 				CF2DCDD524325E1E00E2F952 /* MenuView.swift in Sources */,
@@ -301,6 +312,7 @@
 				CF2DCDD72432702100E2F952 /* Home.swift in Sources */,
 				CF2AC4162433986700997F8D /* HomeView.swift in Sources */,
 				CF42C97A242FA23F0095D54F /* SceneDelegate.swift in Sources */,
+				CF61516E245EE2E50096100C /* PostList.swift in Sources */,
 				CF42C97C242FA23F0095D54F /* ContentView.swift in Sources */,
 				CF61516A245EDCF10096100C /* CourseDetail.swift in Sources */,
 				CFF2D8ED245C2D7B00031F05 /* TabBar.swift in Sources */,
